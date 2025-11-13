@@ -33,7 +33,25 @@ export async function generateHandler(req, res) {
       try {
         // 2️⃣ Generate audio
         if (socketId) io.to(socketId).emit("status", "🎙️ Generating audio...");
-        const audioPath = await textToSpeechElevenLabs(script, language);
+try {
+  const audioPath = await textToSpeechElevenLabs(script, language);
+  if (socketId) io.to(socketId).emit("update", { step: "audio", data: audioPath });
+} catch (err) {
+  console.error("❌ TTS Generation Error Details:");
+  console.error("Message:", err.message);
+  console.error("Stack:", err.stack);
+
+  // Log ElevenLabs-specific error data if available
+  if (err.response) {
+    console.error("Status:", err.response.status);
+    console.error("Headers:", err.response.headers);
+    console.error("Data:", await err.response.text?.() || err.response.data);
+  }
+
+  if (socketId) io.to(socketId).emit("error", { message: "ElevenLabs TTS failed: " + err.message });
+  throw err; // rethrow so the process stops here
+}
+
 
         // Upload audio to Cloudinary temporarily
         const audioUrl = await uploadToCloudinary(audioPath, "afrovids/audio");
