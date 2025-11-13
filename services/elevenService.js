@@ -5,7 +5,7 @@ import { ElevenLabsClient } from "@elevenlabs/elevenlabs-js";
 
 console.log("🔑 Using ElevenLabs API Key:", process.env.ELEVENLABS_API_KEY);
 const client = new ElevenLabsClient({
-  apiKey: "sk_28070d6882944c4e4ad13b3bee1175ab1c52b57edcf0e699"
+  apiKey: "sk_2622b25a607ce1749c4777432ee3ddce073e27b52a1389c8"
   //  process.env.ELEVENLABS_API_KEY,
 });
 
@@ -31,9 +31,10 @@ const voiceMap = {
   en: "21m00Tcm4TlvDq8ikWAM",
 };
 
-export async function textToSpeechElevenLabs(text, language = "en") {
+export async function textToSpeechElevenLabs(text, language ) {
+  console.log(language)
   const startTime = Date.now();
-  const voiceId = voiceMap[language] || voiceMap["en"];
+  const voiceId = voiceMap[language] ;
 
   console.log(`\n🎙️ [TTS START] Language: ${language} | Voice ID: ${voiceId}`);
 
@@ -43,6 +44,7 @@ export async function textToSpeechElevenLabs(text, language = "en") {
       text,
       model_id: "eleven_multilingual_v2",
       output_format: "mp3_44100_128",
+      language_code: language,
     });
 
     // Convert stream to Buffer

@@ -36,7 +36,7 @@ io.on("connection", (socket) => {
 
 // ✅ Make `io` and `clients` accessible inside route handlers or controllers
 app.set("io", io);
-app.set("clients", clients);
+// app.set("clients", clients);
 
 // Start server
 server.listen(PORT, () => {

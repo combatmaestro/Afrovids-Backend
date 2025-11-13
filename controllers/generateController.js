@@ -7,13 +7,15 @@ import { mergeAudioVideo } from "../services/mergeService.js";
 import { uploadToCloudinary, deleteFromCloudinary } from "../services/cloudinaryService.js";
 
 export async function generateHandler(req, res) {
+
   try {
-    const { topic, language = "en", duration = 5, clientId } = req.body;
+    const { topic, language , duration = 4, clientId } = req.body;
+    
     if (!topic) return res.status(400).json({ error: "Topic required" });
 
     const io = req.app.get("io");
-    const clients = req.app.get("clients");
-    const socketId = clientId ? clients.get(clientId) : null;
+    // const clients = req.app.get("clients");
+    const socketId = clientId 
 
     // 1️⃣ Generate script
     if (socketId) io.to(socketId).emit("status", "🧠 Generating script...");
@@ -66,7 +68,6 @@ export async function generateHandler(req, res) {
           videoUrl,
           mergedUrl,
         });
-
         console.log("🎉 Generation complete:", mergedUrl);
       } catch (err) {
         console.error("Background generation failed:", err);
