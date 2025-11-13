@@ -48,8 +48,11 @@ try {
     console.error("Data:", await err.response.text?.() || err.response.data);
   }
 
-  if (socketId) io.to(socketId).emit("error", { message: "ElevenLabs TTS failed: " + err.message });
-  throw err; // rethrow so the process stops here
+   console.error("❌ ElevenLabs TTS Exception:");
+    console.error("Message:", err.message);
+    console.error("Stack:", err.stack);
+    if (err.response) console.error("Response:", await err.response.text());
+    throw new Error("ElevenLabs TTS failed");
 }
 
 

@@ -5,7 +5,7 @@ import { ElevenLabsClient } from "@elevenlabs/elevenlabs-js";
 
 console.log("🔑 Using ElevenLabs API Key:", process.env.ELEVENLABS_API_KEY);
 const client = new ElevenLabsClient({
-  apiKey: "sk_2622b25a607ce1749c4777432ee3ddce073e27b52a1389c8"
+  apiKey: "sk_8791d5909da13358ba73a5332cb1f0fdecadb59773648d39"
   //  process.env.ELEVENLABS_API_KEY,
 });
 
