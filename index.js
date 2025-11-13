@@ -10,7 +10,7 @@ const server = http.createServer(app);
 // ✅ Setup Socket.IO server
 const io = new Server(server, {
   cors: {
-    origin: ["http://localhost:3000", "https://afro-vids.vercel.app"],
+    origin: ["http://localhost:3000", "https://afro-vids.vercel.app","https://afro-vids-frontend.vercel.app"],
     methods: ["GET", "POST"],
     credentials: true,
   },
